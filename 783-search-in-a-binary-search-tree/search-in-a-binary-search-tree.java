@@ -15,13 +15,17 @@
  */
 class Solution {
     public TreeNode searchBST(TreeNode root, int val) {
-        return fun(root,val);
-    }
-    public static TreeNode fun(TreeNode root,int val){
-        if(root==null) return null;
-        if(root.val==val) return root;
-        else if(root.val>val) return fun(root.left,val);
-        else if(root.val<val) return fun(root.right,val);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(q.size()>0){
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                TreeNode temp = q.poll();
+                if(temp.left!=null) q.add(temp.left);
+                if(temp.right!=null) q.add(temp.right);
+                if(temp.val==val) return temp;
+            }
+        }
         return null;
     }
 }
