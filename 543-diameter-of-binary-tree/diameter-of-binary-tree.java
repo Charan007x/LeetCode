@@ -15,22 +15,24 @@
  */
 class Solution {
     public static class pair{
-        int max;
+        int height;
         int dia;
-        pair(int max,int dia){
-            this.max=max;
+        pair(int height,int dia){
+            this.height=height;
             this.dia=dia;
         }
     }
     public int diameterOfBinaryTree(TreeNode root) {
-        return fun(root).dia;
+        pair ans=fun(root);
+        return ans.dia;
     }
     public static pair fun(TreeNode root){
         if(root==null) return new pair(-1,0);
         pair left=fun(root.left);
         pair right=fun(root.right);
-        int lh=left.max;
-        int rh=right.max;
-        return new pair((1+Math.max(lh,rh)),(Math.max(2+lh+rh,Math.max(left.dia,right.dia))));
+        int lh=left.height;
+        int rh=right.height;
+        int max=2+lh+rh;
+        return new pair(1+Math.max(lh,rh),Math.max(max,Math.max(left.dia,right.dia)));
     }
 }
