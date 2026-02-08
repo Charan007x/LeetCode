@@ -1,5 +1,6 @@
 class Solution {
     public List<Integer> grayCode(int n) {
+        // solved this question with a fluke, hehe
         List<Integer> list = new ArrayList<>();
         int sw[]=new int[1];
         sw[0]=0;
