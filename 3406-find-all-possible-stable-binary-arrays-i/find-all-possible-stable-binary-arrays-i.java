@@ -2,9 +2,9 @@ class Solution {
     public int numberOfStableArrays(int zero, int one, int limit) {
         long mod=1000000007;
         long dp[][][][]=new long[zero+1][one+1][3][Math.max(zero,one)+1];
-        for(long[][][] arr3 : dp)
-        for(long[][] arr2 : arr3)
-        for(long[] arr1 : arr2)Arrays.fill(arr1, -1);
+        for(long[][][] x: dp)
+        for(long[][] y:x)
+        for(long[] z:y) Arrays.fill(z,-1);
         long ans=fun(zero,one,2,0,limit,dp,mod);
         ans=(ans%mod);
         return (int)(ans);
