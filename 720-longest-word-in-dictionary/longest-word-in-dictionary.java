@@ -7,6 +7,7 @@ class Solution {
         for(int i=a.length-1;i>=0;i--){
             String s=a[i];
             boolean flag=true;
+            if(s.length()>=ans.length()){
             for(int j=s.length();j>0;j--){
                 if(!set.contains(s.substring(0,j))) flag=false;
             }
@@ -19,6 +20,7 @@ class Solution {
                     ans=s;
                 }
             }
+        }
         }
         return ans;
     }
