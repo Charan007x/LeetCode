@@ -1,12 +1,23 @@
 class Solution {
     public int maxDistance(int[] a) {
         int n=a.length;
-        int max=-1;
-        for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                if(a[i]!=a[j]) max=Math.max(max,j-i);
+        int x=-1,y=-1;
+        int l=0,h=n-1;
+        while(l<h){
+            if(a[l]!=a[h]){
+                x=h-l;
+                break;
             }
+            l++;
         }
-        return max;
+        l=0;h=n-1;
+        while(l<h){
+            if(a[l]!=a[h]){
+                y=h-l;
+                break;
+            }
+            h--;
+        }
+        return Math.max(x,y);
     }
 }
