@@ -2,12 +2,12 @@ class Solution {
     public int maximumJumps(int[] a, int tar) {
         int n=a.length;
         if(n==1) return 0;
-        int dp[][]=new int[n][n];
-        for(int i=0;i<n;i++){
+        int dp[][]=new int[n-1][n];
+        for(int i=0;i<n-1;i++){
             Arrays.fill(dp[i],-1);
         }
         int ans=fun(a,tar,n-2,n-1,dp);
-        return (ans<0?-1:ans);
+        return (ans<=0?-1:ans);
     }
     public static int fun(int a[],int tar,int n,int prev,int dp[][]){
         if(prev==0) return 0;
