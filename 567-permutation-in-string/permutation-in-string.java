@@ -1,22 +1,25 @@
 class Solution {
-    public boolean checkInclusion(String s1, String s) {
-        int m=s1.length();
-        int n=s.length();
+    public boolean checkInclusion(String s1, String s2) {
+        int m=s1.length(),n=s2.length();
+        if(m>n) return false;
         HashMap<Character,Integer> freq=new HashMap<>();
         for(int i=0;i<m;i++){
-freq.put(s1.charAt(i),freq.getOrDefault(s1.charAt(i),0)+1);
+            char ch=s1.charAt(i);
+            freq.put(ch,freq.getOrDefault(ch,0)+1);
         }
-        int l=0,h=0;
-        HashMap<Character,Integer> map = new HashMap<>();
+        HashMap<Character,Integer> map=new HashMap<>();
+        for(int i=0;i<m;i++){
+          char ch=s2.charAt(i);
+          map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+        if(map.equals(freq)) return true;
+        int l=0,h=m;
         while(h<n){
-            map.put(s.charAt(h),map.getOrDefault(s.charAt(h),0)+1);
-            while((!freq.containsKey(s.charAt(h))&&map.containsKey(s.charAt(h)))||((freq.containsKey(s.charAt(h))&&freq.get(s.charAt(h))<map.get(s.charAt(h))))){
-                map.put(s.charAt(l),map.get(s.charAt(l))-1);
-                if(map.get(s.charAt(l))==0) map.remove(s.charAt(l));
-                l++;
-            }
-            if(freq.equals(map)) return true;
-            h++;
+            map.put(s2.charAt(l),map.get(s2.charAt(l))-1);
+            if(map.get(s2.charAt(l))==0) map.remove(s2.charAt(l));
+            map.put(s2.charAt(h),map.getOrDefault(s2.charAt(h),0)+1);
+            if(map.equals(freq)) return true;
+            l++;h++;
         }
         return false;
     }
