@@ -1,21 +1,20 @@
 class Solution {
-    public int[] maxSlidingWindow(int[] a, int x) {
+    public int[] maxSlidingWindow(int[] a, int k) {
         int n=a.length;
-        int K=(int)(Math.log(n)/Math.log(2))+1;
-        int st[][]=new int[K][n];
-        for(int i=0;i<n;i++) st[0][i]=a[i];
-        for(int k=1;k<K;k++){
-            int sz=(int)(Math.pow(2,k));
-            for(int i=0;i+sz<=n;i++){
-    st[k][i]=Math.max(st[k-1][i],st[k-1][i+(sz/2)]);
-            }
+        Deque<Integer> dq=new ArrayDeque<>();
+        int ans[]=new int[n+1-k];
+        for(int i=0;i<k;i++){
+            while(dq.size()>0&&a[dq.peekLast()]<a[i]) dq.pollLast();
+            dq.offerLast(i);
         }
-        int ans[]=new int[n-x+1];
-        int m=ans.length,h=x-1;
-        int y=(int)(Math.log(x)/Math.log(2));
-        for(int i=0;i<m;i++){
-            ans[i]=Math.max(st[y][i],st[y][h+1-(int)(Math.pow(2,y))]);
-            h++;
+        int l=0,h=k,x=0;
+        ans[0]=a[dq.peekFirst()];
+        while(h<n){
+            while(dq.size()>0&&dq.peekFirst()<=h-k) dq.pollFirst();
+            while(dq.size()>0&&a[dq.peekLast()]<a[h]) dq.pollLast();
+            dq.offerLast(h);
+            l++;h++;
+            ans[++x]=a[dq.peekFirst()];
         }
         return ans;
     }
