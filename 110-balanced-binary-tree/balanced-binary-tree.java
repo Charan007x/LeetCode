@@ -14,24 +14,23 @@
  * }
  */
 class Solution {
-    public static class Pair{
+    public static class pair{
         int height;
-        boolean balornot;
-        Pair(int height,boolean balornot){
+        boolean bal;
+        pair(int height,boolean bal){
             this.height=height;
-            this.balornot=balornot;
+            this.bal=bal;
         }
     }
     public boolean isBalanced(TreeNode root) {
-        Pair result = fun(root);
-        return result.balornot;
+        pair ans=fun(root);
+        return ans.bal;
     }
-    public static Pair fun(TreeNode root){
-        if(root==null) return new Pair(0,true);
-        Pair left = fun(root.left);
-        Pair right = fun(root.right);
-        int height = 1+Math.max(left.height,right.height);
-        boolean balornot = left.balornot&&right.balornot&&(Math.abs(left.height-right.height)<=1);
-        return new Pair(height,balornot);
+    public static pair fun(TreeNode root){
+        if(root==null) return new pair(0,true);
+        pair left=fun(root.left);
+        pair right=fun(root.right);
+        boolean flag=Math.abs(left.height-right.height)<=1;
+        return new pair((1+Math.max(left.height,right.height)),(flag&&left.bal&&right.bal));
     }
 }
