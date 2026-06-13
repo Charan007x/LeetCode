@@ -15,16 +15,14 @@
  */
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        boolean flag[]=new boolean[1];
-        flag[0]=false;
-        fun(root,subRoot,flag);
-        return flag[0];
+        return fun(root,subRoot);
     }
-    public static void fun(TreeNode a,TreeNode b,boolean flag[]){
-        if(a==null) return;
-        flag[0]=flag[0]||same(a,b);
-        fun(a.left,b,flag);
-        fun(a.right,b,flag);
+    public static boolean fun(TreeNode a,TreeNode b){
+        if(a==null) return false;
+        boolean flag=same(a,b);
+        boolean left=fun(a.left,b);
+        boolean right=fun(a.right,b);
+        return flag||left||right;
     }
     public static boolean same(TreeNode a,TreeNode b){
         if((a==null&&b!=null)||(a!=null&&b==null)) return false;
