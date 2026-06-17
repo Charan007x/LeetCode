@@ -3,18 +3,16 @@ class Solution {
         int n=a.length;
         if(n==1) return a[0];
         if(n==2) return Math.max(a[0],a[1]);
-        int dp[]=new int[n];
-        Arrays.fill(dp,-1);
-        int x=fun(a,0,n-2,dp);
-        Arrays.fill(dp,-1);
-        int y=fun(a,1,n-1,dp);
-        return Math.max(x,y);
+        return Math.max(fun(a,0,n-2),fun(a,1,n-1));
     }
-    public static int fun(int a[],int st,int n,int dp[]){
-        if(n<st) return 0;
-        if(dp[n]!=-1) return dp[n];
-        int left=a[n]+fun(a,st,n-2,dp);
-        int right=fun(a,st,n-1,dp);
-        return dp[n]=Math.max(left,right);
+    public static int fun(int a[],int st,int ed){
+        int n=a.length;
+        int dp[]=new int[n];
+        dp[st]=a[st];
+        dp[st+1]=Math.max(a[st],a[st+1]);
+        for(int i=st+2;i<=ed;i++){
+            dp[i]=Math.max(a[i]+dp[i-2],dp[i-1]);
+        }
+        return dp[ed];
     }
 }
