@@ -10,7 +10,7 @@ class Solution {
             }
             b[i]=count;
         }
-        int dp[][][]=new int[m+1+200][n+1+200][len];
+        int dp[][][]=new int[m+1+100][n+1+100][len];
         for(int i[][]:dp){
             for(int j[]:i){
                 Arrays.fill(j,-1);
@@ -25,9 +25,9 @@ class Solution {
             return -50000;
         }
         if(m<0||n<0) return -50000;
-        if(dp[m+200][n+200][idx]!=-1) return dp[m+200][n+200][idx];
+        if(dp[m+100][n+100][idx]!=-1) return dp[m+100][n+100][idx];
         int left=1+fun(s,b,m-(s[idx].length()-b[idx]),n-b[idx],idx-1,dp);
         int right=fun(s,b,m,n,idx-1,dp);
-        return dp[m+200][n+200][idx]=Math.max(left,right);
+        return dp[m+100][n+100][idx]=Math.max(left,right);
     }
 }
