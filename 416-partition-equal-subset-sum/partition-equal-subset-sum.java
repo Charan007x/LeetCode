@@ -3,20 +3,23 @@ class Solution {
         int n=a.length;
         int sum=0;
         for(int i=0;i<n;i++) sum+=a[i];
-        if(sum%2!=0)return false;
-        int dp[][]=new int[n][(sum/2)+1];
-        for(int i[]:dp){
-            Arrays.fill(i,-1);
-        }
-        int ans= fun(a,n-1,sum/2,dp);
+        if(sum%2!=0) return false;
+        int ans=fun(a,sum);
         return (ans==0?false:true);
     }
-    public static int fun(int a[],int n,int sum,int dp[][]){
-        if(sum==0) return 1;
-        if(n<0||sum<0) return 0;
-        if(dp[n][sum]!=-1) return dp[n][sum];
-        int left=fun(a,n-1,sum-a[n],dp);
-        int right=fun(a,n-1,sum,dp);
-        return dp[n][sum]= left+right;
+    public static int fun(int a[],int sum){
+        int n=a.length;
+        int dp[][]=new int[n][(sum/2)+1];
+        for(int i=0;i<n;i++) dp[i][0]=1;
+        if(a[0]<=sum/2) dp[0][a[0]]=1;
+        for(int i=1;i<n;i++){
+            int left=0,right=0;
+            for(int j=1;j<=sum/2;j++){
+                if(a[i]<=j) left=dp[i-1][j-a[i]];
+                right=dp[i-1][j];
+                dp[i][j]=left+right;
+            }
+        }
+        return dp[n-1][(sum/2)];
     }
 }
