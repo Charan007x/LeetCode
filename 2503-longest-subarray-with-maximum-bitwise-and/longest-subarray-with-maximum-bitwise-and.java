@@ -3,15 +3,14 @@ class Solution {
         int n=a.length;
         int max=-1;
         for(int i:a) max=Math.max(i,max);
-        int ans=0,count=0;
-        for(int i=0;i<n;i++){
-            if(a[i]==max){
-                count++;
-                if(i==n-1) ans=Math.max(ans,count);
-            }else{
-                ans=Math.max(ans,count);
-                count=0;
+        int l=0,h=0,ans=1;
+        while(h<n){
+            if(a[l]!=max&&a[h]==max)l=h;
+            while(a[h]!=max&&l<h){
+                l++;
             }
+            ans=Math.max(ans,h-l+1);
+            h++;
         }
         return ans;
     }
