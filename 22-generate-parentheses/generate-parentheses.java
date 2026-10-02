@@ -1,19 +1,15 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
-        List<String> ans = new ArrayList<>();
-        fun(ans,0,0,"",n);
-        return ans;
+        List<String> list=new ArrayList<>();
+        fun(2*n,list,"",0,0);
+        return list;
     }
-    public static void fun(List<String> ans,int l,int r,String s,int n){
-        if(s.length()==2*n){
-            ans.add(s);
+    public static void fun(int n,List<String> list,String s, int x,int y){
+        if(s.length()==n){
+            list.add(s);
             return;
         }
-        if(l<n){
-            fun(ans,l+1,r,s+'(',n);
-        }
-        if(r<l){
-            fun(ans,l,r+1,s+')',n);
-        }
+        if(x<n/2) fun(n,list,s+"(",x+1,y);
+        if(y<x) fun(n,list,s+")",x,y+1);
     }
 }
